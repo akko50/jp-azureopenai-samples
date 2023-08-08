@@ -30,6 +30,7 @@ param openAiResourceGroupName string = ''
 param openAiResourceGroupLocation string = location
 
 param openAiSkuName string = 'S0'
+param openAiSkuCapaciry int = 60
 
 param openAiDavinciDeploymentName string = 'davinci'
 param openAiGpt35TurboDeploymentName string = 'chat'
@@ -44,8 +45,8 @@ param formRecognizerResourceGroupLocation string = location
 
 param formRecognizerSkuName string = 'S0'
 
-param gptDeploymentName string = 'embedding-ada'
-param gptModelName string = 'text-embedding-ada-002'
+param gptDeploymentName string = 'gpt35turbo'
+param gptModelName string = 'gpt-35-turbo'
 param chatGptDeploymentName string = 'chat'
 param chatGptModelName string = 'gpt-35-turbo'
 
@@ -152,6 +153,7 @@ module openAi 'core/ai/cognitiveservices.bicep' = {
     tags: tags
     sku: {
       name: openAiSkuName
+      capacity: openAiSkuCapaciry
     }
     deployments: [
       {
@@ -159,7 +161,7 @@ module openAi 'core/ai/cognitiveservices.bicep' = {
         model: {
           format: 'OpenAI'
           name: gptModelName
-          version: '2'
+          version: '0301'
         }
         scaleSettings: {
           scaleType: 'Standard'
